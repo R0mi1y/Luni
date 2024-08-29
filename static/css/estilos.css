@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Oswald';
+    src: url("{% static 'fonts/Oswald-VariableFont_wght.ttf' %}");
+}
+
+body {
+    background-image: url("{% static 'img/Fundo.png' %}");
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -1,0 +1,203 @@
+from pyexpat.errors import messages
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
+from carrinho.models import Carrinho, ItemCarrinho
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+from .models import *
+from .forms import *
+
+
+
+@login_required
+def detalhes_produto(request, id):
+    produto = Produto.objects.filter(id=id).first()
+    
+    if not produto:
+        return redirect('listar_produtos')
+    
+    return render(request, 'produto/produto.html', {'produto': produto})
+
+
+@login_required
+def listar_produtos(request):
+    produtos = Produto.objects.all()
+    
+    return render(request, 'produto/listar_produtos.html', {'produtos': produtos})
+
+
+@login_required
+def listar_tipos_produtos(request):
+    form_tipo = CategoriaProdutoForm()
+    tipos_produtos = CategoriaProduto.objects.all()
+    
+    return render(request, 'produto/listar_tipos_produtos.html', {"form_tipo": form_tipo, "tipos_produtos": tipos_produtos})
+
+
+@login_required
+def create_produto(request):
+    if request.method == "POST":
+        form = ProdutoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_produtos')
+        else:
+            return render(request, "form.html", {"form" : form, 'titulo': 'Criar produto'})
+    else:
+        form = ProdutoForm()
+        return render(request, "form.html", {"form" : form, 'titulo': 'Criar produto'})
+    
+
+@login_required
+def edit_produto(request, id):
+    produto = Produto.objects.get(pk = id)
+    print(produto)
+
+    if request.method == "POST":
+        form = ProdutoForm(request.POST, request.FILES, instance=produto)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('listar_produtos')
+    else:
+        form = ProdutoForm(instance=produto)
+
+    return render(request, 'form.html', {'form' : form, 'current_image_url': produto.imagem.url, 'titulo': 'Editar produto'})
+
+
+@login_required
+def remove_produto(request, id):
+    Produto.objects.get(pk = id).delete()
+
+    return redirect('listar_produtos')
+
+
+@login_required
+def create_tipo_produto(request):
+    if request.method == "POST":
+        form = CategoriaProdutoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("listar_tipo_produtos")
+        else:
+            return redirect("listar_tipo_produtos")
+    else:
+        form = CategoriaProdutoForm()
+        return redirect("listar_tipo_produtos")
+    
+
+@login_required
+def edit_tipo_produto(request, id):
+    produto = CategoriaProduto.objects.get(pk = id)
+    print(produto)
+
+    if request.method == "POST":
+        form = CategoriaProdutoForm(request.POST, instance=produto)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('listar_tipo_produtos')
+    else:
+        form = CategoriaProdutoForm(instance=produto)
+
+    return render("form.html", {'form' : form, 'titulo': 'Editar tipo de produto'})
+
+
+@login_required
+def remove_tipo_produto(request, id):
+    CategoriaProduto.objects.filter(pk = id).first().delete()
+
+    return redirect('listar_tipo_produtos')
+
+
+
+def pesquisar_produtos(request):
+    produtos = Produto.objects.all()
+    
+    # Filtros
+    pesquisa = request.GET.get('pesquisa', '').strip()
+    categoria_id = request.GET.get('categoria')
+    preco_min = request.GET.get('preco_min')
+    preco_max = request.GET.get('preco_max')
+    tamanho_id = request.GET.get('tamanho')
+    sort = request.GET.get('sort', '')
+    
+    if sort == 'preco_asc':
+        produtos = produtos.order_by('preco')
+    elif sort == 'preco_desc':
+        produtos = produtos.order_by('-preco')
+        
+    if pesquisa:
+        produtos = produtos.filter(Q(nome__icontains=pesquisa) | Q(descricao__icontains=pesquisa))
+        
+    if categoria_id:
+        produtos = produtos.filter(categorias__id=categoria_id)
+    
+    if preco_min:
+        produtos = produtos.filter(preco__gte=preco_min)
+    
+    if preco_max:
+        produtos = produtos.filter(preco__lte=preco_max)
+    
+    if tamanho_id:
+        produtos = produtos.filter(tamanho__id=tamanho_id)
+    
+    # Paginação
+    paginator = Paginator(produtos, 12)  # Mostra 10 produtos por página
+    page = request.GET.get('page')
+    
+    try:
+        produtos_pagina = paginator.page(page)
+    except PageNotAnInteger:
+        # Se a página não for um inteiro, exiba a primeira página.
+        produtos_pagina = paginator.page(1)
+    except EmptyPage:
+        # Se a página estiver fora do intervalo (por exemplo, 9999), exiba a última página de resultados.
+        produtos_pagina = paginator.page(paginator.num_pages)
+    
+    categorias = CategoriaProduto.objects.all()
+    tamanhos = Tamanho.objects.all()
+    
+    context = {
+        'produtos': produtos_pagina,
+        'categorias': categorias,
+        'tamanhos': tamanhos,
+        'pesquisa': pesquisa,
+        'preco_min': preco_min,
+        'preco_max': preco_max,
+        'categoria_id': categoria_id,
+        'tamanho_id': tamanho_id,
+        'sort': sort,
+    }
+    return render(request, 'produto/pesquisa.html', context)
+
+
+@login_required
+def adicionar_ao_carrinho(request, id):
+    produto = get_object_or_404(Produto, id=id)
+    usuario = request.user
+    carrinho, created = Carrinho.objects.get_or_create(usuario=usuario)
+
+    item_carrinho, created = ItemCarrinho.objects.get_or_create(carrinho=carrinho, produto=produto)
+
+    if not created:
+        item_carrinho.quantidade += 1
+        item_carrinho.save()
+
+    return redirect('carrinho')
+
+
+@login_required
+def remover_do_carrinho(request, id):
+    produto = get_object_or_404(Produto, id=id)
+    usuario = request.user
+    carrinho, created = Carrinho.objects.get_or_create(usuario=usuario)
+
+    item_carrinho, created = ItemCarrinho.objects.get_or_create(carrinho=carrinho, produto=produto)
+    
+    if item_carrinho:
+        item_carrinho.delete()
+
+    return redirect('carrinho')

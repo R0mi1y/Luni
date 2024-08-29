@@ -1,0 +1,30 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>web I -Login</title>
+</head>
+
+<body class="bg-gradient-primary">
+
+<form class="user" method="POST">
+        <h2>Login</h2>
+        <form class="user" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success btn-user btn-block">Login</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    <br>
+    <a class="small" href="{% url "create_usuario" %}">Cadastre-se aqui!</a><br>
+    <a class="small" href="{% url "password_reset" %}">Esqueci a senha</a>
+</body>
+
+</html>

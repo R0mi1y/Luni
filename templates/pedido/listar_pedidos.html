@@ -1,0 +1,59 @@
+{% extends "principal/settings.html" %}
+{% load static %}
+
+{% block title %}Listar Produtos{% endblock title %}
+
+{% block settings_content %}
+    <div class="form-row">
+        <a href="{% url "create_pedido" %}" class="btn-primary">Novo pedido</a>
+    </div>
+    <br>
+
+    <h2>Lista de Pedidos</h2>
+    <br>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Data do Pedido</th>
+                <th>Preço Total</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+                <td>{{ pedido.id }}</td>
+                <td>{{ pedido.cliente }}</td>
+                <td>{{ pedido.data_pedido }}</td>
+                <td>{{ pedido.preco_total }}</td>
+                <td>{{ pedido.status }}</td>
+                <td>
+                    <div class="d-flex justify-content-between" style="gap: 1rem;">
+                        <a href="{% url 'edit_pedido' id=pedido.id %}" class="btn btn-primary">Editar</a>
+                        <form method="POST" action="{% url 'delete_pedido' pedido.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary color-rednger" onclick="return confirm('Tem certeza que deseja deletar este pedido?');">Deletar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">Não há nenhum pedido cadastrado</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+    <h2>Adicionar Novo Tipo de Produto</h2>
+    <form method="POST" action="{% url 'create_tipo_produto' %}">
+        {% csrf_token %}
+        {{ tipo_produto_form.as_p }}
+        <button type="submit" class="btn btn-primary">Cadastrar Novo Tipo</button>
+    </form>
+{% endblock settings_content %}

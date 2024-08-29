@@ -1,0 +1,29 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{{ nome_site }} - Formulário de cadastro</title>
+</head>
+
+<body class="bg-gradient-primary">
+
+<form class="user" method="POST" enctype="multipart/form-data">
+        <h2>Formulário de cadastro</h2>
+        <form class="user" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success btn-user btn-block">Enviar dados</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    <br>
+    <a class="small" href="{% url "login" %}">Já tem uma conta? Faça login!</a>
+</body>
+
+</html>
