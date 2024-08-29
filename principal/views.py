@@ -1,4 +1,4 @@
-from email.headerregistry import Group
+from django.contrib.auth.models import Group
 from django.contrib import messages
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
