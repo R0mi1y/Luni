@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+
+from principal.decorators import group_required
 from .models import *
 from .forms import *
 
-
+@group_required('Administradores')
 @login_required
 def listar_estampas(request):
     estampas = Estampa.objects.all()
     return render(request, 'estampa/listar_estampas.html', {'estampas': estampas})
 
 
+@group_required('Administradores')
 @login_required
 def create_estampa(request):
     if request.method == "POST":
@@ -24,6 +27,7 @@ def create_estampa(request):
         return render(request, "form.html", {"form" : form, 'titulo' : 'Criar Estampa'})
     
 
+@group_required('Administradores')
 @login_required
 def edit_estampa(request, id):
     estampa = Estampa.objects.get(pk = id)
@@ -42,6 +46,7 @@ def edit_estampa(request, id):
     return render(request, 'form.html', {'form' : form, 'current_image_url': estampa.imagem.url, 'titulo' : 'Editar Estampa'})
 
 
+@group_required('Administradores')
 @login_required
 def remove_estampa(request, id):
     Estampa.objects.filter(pk = id).first().delete()

@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.contrib import messages
+
+from principal.decorators import group_required
 from .models import *
 from .forms import *
 
@@ -44,6 +46,7 @@ def edit_usuario(request, id):
 
 
 @login_required
+@group_required('Administradores')
 def remove_usuario(request, id):
     Usuario.objects.filter(pk = id).first().delete()
 
@@ -52,6 +55,9 @@ def remove_usuario(request, id):
 
 @login_required
 def perfil(request, id=None):
+    if not request.user.is_superuser and id != request.user.id:
+        return redirect('perfil_usuario')
+    
     user = None
     if id:
         user = get_object_or_404(Usuario, pk=id)
@@ -64,6 +70,7 @@ def perfil(request, id=None):
 
 
 @login_required
+@group_required('Administradores')
 def mudar_tipo(request, id):
     if request.method == "POST":
         tipo = request.POST.get('tipo', "Cliente")
@@ -97,6 +104,16 @@ def mudar_tipo(request, id):
 
 
 @login_required
+@group_required('Administradores')
 def listar_usuarios(request):
     usuarios = Usuario.objects.all()
     return render(request, 'usuario/listar_usuarios.html', {'usuarios': usuarios})
+
+
+def receber_suporte_corporativo(request):
+    if request.user.groups.filter(name='Administradores').exists():
+        return render(request, 'support/receber_suporte_corporativo.html')
+    
+    messages.error(request, 'Você não tem permissão para acessar esta página. Para ter uma conta corporativa entre em contato com luni.support@gmail.com')
+    
+    return redirect('home')

@@ -15,7 +15,7 @@ def carrinho(request, id=None):
     elif request.user.is_superuser:
         user = get_object_or_404(Usuario, pk=id)
     else:
-        redirect('perfil')
+        redirect('carrinho')
     
     itens_carrinho = ItemCarrinho.objects.filter(carrinho=Carrinho.objects.filter(usuario=user).first())
     
@@ -42,8 +42,11 @@ def atualizar_carrinho(request):
             item_id = key.split('_')[1]
             quantidade = int(value)
             item = ItemCarrinho.objects.get(id=item_id)
-            item.quantidade = quantidade
-            item.save()
+            
+            if item.carrinho.usuario.id == request.user.id:
+                item.quantidade = quantidade
+                item.save()
+                
     messages.success(request, 'Carrinho atualizado com sucesso.')
     return redirect('carrinho')
 

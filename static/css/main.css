@@ -2808,6 +2808,50 @@ Product*/
   height: 390px;
 }
 
+.popup {
+    background-color: #f8f9fa; /* cor padrão de fundo */
+    color: #333; /* cor do texto padrão */
+    padding: 15px;
+    border-radius: 5px;
+    position: relative;
+    margin: 10px;
+    transition: opacity 0.5s ease;
+}
+
+.popup.show {
+    opacity: 1;
+}
+
+.popup.hide {
+    opacity: 0;
+}
+
+.popup.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.popup.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#popup-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
 
 /*==================================================================
    BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND 

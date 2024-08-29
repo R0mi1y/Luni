@@ -42,7 +42,7 @@
                         <a href="{% url 'edit_produto' id=produto.id %}" class="btn btn-primary">Editar</a>
                         <form method="POST" action="{% url 'delete_produto' produto.id %}" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-primary color-rednger" onclick="return confirm('Tem certeza que deseja deletar este produto?');">Deletar</button>
+                            <button type="submit" style="background-color: #d45959;" class="btn btn-primary color-rednger" onclick="return confirm('Tem certeza que deseja deletar este produto?');">Deletar</button>
                         </form>
                     </div>
                 </td>

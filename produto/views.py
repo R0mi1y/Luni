@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from carrinho.models import Carrinho, ItemCarrinho
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+
+from principal.decorators import group_required
 from .models import *
 from .forms import *
 
@@ -20,6 +22,7 @@ def detalhes_produto(request, id):
 
 
 @login_required
+@group_required('Administradores')
 def listar_produtos(request):
     produtos = Produto.objects.all()
     
@@ -27,14 +30,16 @@ def listar_produtos(request):
 
 
 @login_required
+@group_required('Administradores')
 def listar_tipos_produtos(request):
     form_tipo = CategoriaProdutoForm()
     tipos_produtos = CategoriaProduto.objects.all()
     
-    return render(request, 'produto/listar_tipos_produtos.html', {"form_tipo": form_tipo, "tipos_produtos": tipos_produtos})
+    return render(request, 'produto/listar_tipos_produtos.html', {"tipo_produto_form": form_tipo, "tipos_produtos": tipos_produtos})
 
 
 @login_required
+@group_required('Administradores')
 def create_produto(request):
     if request.method == "POST":
         form = ProdutoForm(request.POST, request.FILES)
@@ -49,6 +54,7 @@ def create_produto(request):
     
 
 @login_required
+@group_required('Administradores')
 def edit_produto(request, id):
     produto = Produto.objects.get(pk = id)
     print(produto)
@@ -67,6 +73,7 @@ def edit_produto(request, id):
 
 
 @login_required
+@group_required('Administradores')
 def remove_produto(request, id):
     Produto.objects.get(pk = id).delete()
 
@@ -74,6 +81,7 @@ def remove_produto(request, id):
 
 
 @login_required
+@group_required('Administradores')
 def create_tipo_produto(request):
     if request.method == "POST":
         form = CategoriaProdutoForm(request.POST)
@@ -88,6 +96,7 @@ def create_tipo_produto(request):
     
 
 @login_required
+@group_required('Administradores')
 def edit_tipo_produto(request, id):
     produto = CategoriaProduto.objects.get(pk = id)
     print(produto)
@@ -106,11 +115,11 @@ def edit_tipo_produto(request, id):
 
 
 @login_required
+@group_required('Administradores')
 def remove_tipo_produto(request, id):
     CategoriaProduto.objects.filter(pk = id).first().delete()
 
     return redirect('listar_tipo_produtos')
-
 
 
 def pesquisar_produtos(request):

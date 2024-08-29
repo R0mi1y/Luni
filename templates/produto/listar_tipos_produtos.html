@@ -5,6 +5,17 @@
 {% block settings_content %}
     <h2>Tipos de Produtos</h2>
     <br>
+    
+    <hr>
+    <h4>Adicionar Novo Tipo de Produto</h4>
+    <br>
+    <form method="POST" action="{% url 'create_tipo_produto' %}">
+        {% csrf_token %}
+        {{ tipo_produto_form.as_p }}
+        <button type="submit" class="btn btn-primary">Cadastrar Novo Tipo</button>
+    </form>
+    <br>
+    <br>
 
     <table class="table table-striped">
         <thead>
@@ -33,16 +44,4 @@
             {% endfor %}
         </tbody>
     </table>
-    <br>
-    <form method="POST" action="{% url 'create_tipo_produto' %}" class="text-left">
-        {% csrf_token %}
-        {{ form_tipo.as_p }}
-        <br>
-        <button type="submit" class="btn-primary">Cadastrar</button>
-    </form>
-    <hr>
-    <div class="d-flex">
-        <a type="submit" class="btn-primary" href="{% url "create_produto" %}">Cadastrar novo produto</a>
-        <a type="submit" class="btn-primary" href="{% url "create_estampa" %}">Cadastrar nova estampa</a>
-    </div>
 {% endblock settings_content %}

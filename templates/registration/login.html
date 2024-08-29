@@ -36,7 +36,8 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				<form method='POST' class="login100-form validate-form">
+					{% csrf_token %}
 					<span class="login100-form-title p-b-43">
 						<div class="div-logo" >
 								<img src="{% static "static/images/banner_cortado.png" %}" alt="IMG-LOGO">

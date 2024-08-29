@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
+
+from principal.decorators import group_required
 from .models import *
 from .forms import *
 
@@ -23,6 +25,7 @@ def listar_pedidos(request, id=None):
 
 
 @login_required
+@group_required('Administradores')
 def create_pedido(request):
     if request.method == "POST":
         form = PedidoForm(request.POST)
@@ -37,6 +40,7 @@ def create_pedido(request):
     
 
 @login_required
+@group_required('Administradores')
 def edit_pedido(request, id):
     pedido = Pedido.objects.get(pk = id)
     print(pedido)
@@ -55,6 +59,7 @@ def edit_pedido(request, id):
 
 
 @login_required
+@group_required('Administradores')
 def remove_pedido(request, id):
     Pedido.objects.filter(pk = id).first().delete()
 

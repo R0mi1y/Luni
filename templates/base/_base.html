@@ -47,8 +47,11 @@
 						</li>
 						{% endif %}
 						{% if request.user.is_superuser %}
-							<li><a href="{% url 'settings' %}">Configurações</a></li>
+						<li><a href="{% url 'settings' %}">Configurações</a></li>
 						{% endif %}
+						<li>
+							<a href="{% url "receber_suporte_corporativo" %}">Suporte Corporativo</a></li>
+						</li>
 					</ul>
 				</div>	
 
@@ -175,23 +178,26 @@
 		document.addEventListener("DOMContentLoaded", function() {
 			{% if messages %}
 			const messages = [
-			{% for message in messages %}
-			"{{ message }}",
-			{% endfor %}
+				{% for message in messages %}
+				{
+					text: "{{ message.message }}",
+					type: "{{ message.tags }}"
+				},
+				{% endfor %}
 			];
 			
 			messages.forEach(function(message) {
-				showPopup(message);
+				showPopup(message.text, message.type);
 			});
 			{% endif %}
 		});
 		
-		function showPopup(message) {
+		function showPopup(message, type) {
 			const container = document.getElementById("popup-container");
 			
 			// Cria o elemento do popup
 			const popup = document.createElement("div");
-			popup.className = "popup";
+			popup.className = `popup ${type}`;
 			popup.textContent = message;
 			
 			// Adiciona um botão de fechar
