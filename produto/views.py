@@ -176,15 +176,29 @@ def pesquisar_produtos(request):
 
 @login_required
 def adicionar_ao_carrinho(request, id):
-    produto = get_object_or_404(Produto, id=id)
-    usuario = request.user
-    carrinho, created = Carrinho.objects.get_or_create(usuario=usuario)
+    if request.method == 'POST':
+        produto = get_object_or_404(Produto, id=id)
+        usuario = request.user
+        carrinho, created = Carrinho.objects.get_or_create(usuario=usuario)
 
-    item_carrinho, created = ItemCarrinho.objects.get_or_create(carrinho=carrinho, produto=produto)
+        quantidade = int(request.POST.get('quantidade'))
+        estampa_id = int(request.POST.get('estampa'))
+        tamanho_id = int(request.POST.get('tamanho'))
 
-    if not created:
-        item_carrinho.quantidade += 1
-        item_carrinho.save()
+        estampa = get_object_or_404(Estampa, id=estampa_id)
+        tamanho = get_object_or_404(Tamanho, id=tamanho_id)
+        
+        item, created = ItemCarrinho.objects.get_or_create(
+            carrinho=carrinho, 
+            produto=produto, 
+            estampa=estampa, 
+            tamanho=tamanho, 
+            defaults={'quantidade': quantidade}
+        )
+
+        if not created:
+            item.quantidade += quantidade
+            item.save()
 
     return redirect('carrinho')
 

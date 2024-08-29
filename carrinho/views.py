@@ -62,6 +62,8 @@ def confirmar_compra(request):
         
         for item in itens_carrinho:
             ItemPedido.objects.create(
+                estampa=item.estampa,
+                tamanho=item.tamanho,
                 pedido=pedido,
                 produto=item.produto,
                 quantidade=item.quantidade,

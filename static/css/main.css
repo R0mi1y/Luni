@@ -2814,7 +2814,7 @@ Product*/
 ==================================================================*/
 .bg-none {background-color: transparent;}
 .bg0 {background-color: #fff;}
-.bg1 {background-color: #717fe0;}
+.bg1 {background-color: #9da7e4;}
 .bg2 {background-color: #e6e6e6;}
 .bg3 {background-color: #222;}
 .bg5 {background-color: rgba(0,0,0,0.5);}
@@ -3503,10 +3503,24 @@ Product*/
   }
 
 }
+.select-tamanho {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #7a7a7a;
+}
 
 .imagem-container {
   width: 200px;
   height: 200px;
+  overflow: hidden; 
+}
+.imagem-container-p {
+  width: 50px;
+  height: 50px;
   overflow: hidden; 
 }
 .imagem-container-pesquisa {

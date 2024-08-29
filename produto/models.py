@@ -24,7 +24,7 @@ class Tamanho(models.Model):
     tamanho = models.CharField(max_length=50)
     
     def __str__(self):
-        return self.tamanho
+        return f"{self.id} - {self.tamanho}"
 
 
 class Produto(models.Model):

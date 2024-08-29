@@ -5,15 +5,17 @@
 {% block content %}
     <div class="container-product">
         <div class="form-container">
-            <hr>
-            <div class="form-row justify-content-center">
-                <li><a href="{% url 'listar_usuarios' %}">Usuários</a></li> | 
-                <li><a href="{% url 'listar_produtos' %}">Produtos</a></li> | 
-                <li><a href="{% url 'listar_tipo_produtos' %}">Tipo Produtos</a></li> | 
-                <li><a href="{% url 'listar_estampas' %}">Estampas</a></li> | 
-                <li><a href="{% url 'listar_pedidos' %}">Pedidos</a></li> | 
-                <li><a href="{% url 'settings' %}">Configurações</a></li>
-            </div>
+            {% if request.user.is_superuser %}
+                <hr>
+                <div class="form-row justify-content-center">
+                    <li><a href="{% url 'listar_usuarios' %}">Usuários</a></li> | 
+                    <li><a href="{% url 'listar_produtos' %}">Produtos</a></li> | 
+                    <li><a href="{% url 'listar_tipo_produtos' %}">Tipo Produtos</a></li> | 
+                    <li><a href="{% url 'listar_estampas' %}">Estampas</a></li> | 
+                    <li><a href="{% url 'listar_pedidos' %}">Pedidos</a></li> | 
+                    <li><a href="{% url 'settings' %}">Configurações</a></li>
+                </div>
+            {% endif %}
             <hr>
             {% block settings_content %}
             <p>

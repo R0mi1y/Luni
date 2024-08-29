@@ -41,7 +41,11 @@
                                                     </a>
                                                     
                                                 </td>
-                                                <td class="column-2">{{ item_data.item.produto.nome }}</td>
+                                                <td class="column-2">
+                                                    <a href="{% url "detalhes_produto" item_data.item.produto.id %}">
+                                                        {{ item_data.item.produto.nome }}
+                                                    </a>
+                                                </td>
                                                 <td class="column-3 preco">R$ {{ item_data.item.produto.preco }}</td>
                                                 <td class="column-4">
                                                     <div class="wrap-num-product flex-w m-l-auto m-r-0">
@@ -178,5 +182,4 @@
         });
 		atualizarTotais();
     </script>
-    <script src="/static/js/main.js"></script>
 {% endblock extra_js %}

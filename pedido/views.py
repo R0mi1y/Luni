@@ -1,12 +1,24 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
 
 @login_required
-def listar_pedidos(request):
-    pedidos = Pedido.objects.all()
+def listar_pedidos(request, id=None):
+    if id:
+        if not request.user.is_superuser and id != request.user.pk:
+            redirect('listar_pedidos', request.user.pk)
+            
+        user = get_object_or_404(Usuario, pk=id)
+        pedidos = Pedido.objects.filter(cliente=user)
+        
+    elif request.user.is_superuser:
+        pedidos = Pedido.objects.all()
+        
+    else:
+        redirect('listar_pedidos', request.user.pk)
+        
     return render(request, 'pedido/listar_pedidos.html', {'pedidos': pedidos})
 
 
