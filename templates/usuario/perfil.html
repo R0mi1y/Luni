@@ -1,6 +1,7 @@
 {% extends "base/_base.html" %}
 {% load widget_tweaks %}
 {% load static %}
+{% load custom_tags %}
 
 {% block title %}Perfil{% endblock title %}
 
@@ -11,7 +12,7 @@
             <h2>Perfil do Usuário</h2> 
             <form action="{% url "logout" %}" method="post" class="form-row icon-header-item">
                 {% csrf_token %}
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{ user.get_size_items }}">
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{ user|get_size_items }}">
                     <a href="{% url "carrinho" id=user.id %}" class="hov-cl1 cl2" title="Meu carrinho">
                         <i class="zmdi zmdi-shopping-cart"></i>
                     </a>

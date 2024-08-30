@@ -1,7 +1,9 @@
 from produto.models import CategoriaProduto
 
 def variaveis_globais(request):
-    return {
+    var = {
         'nome_site': 'Luni',
         'categorias': CategoriaProduto.objects.all(),
     }
+    
+    return var
