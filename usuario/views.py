@@ -9,7 +9,7 @@ from .forms import *
 
 def create_usuario(request):
     if request.method == "POST":
-        form = UsuarioForm(request.POST, request.FILES)
+        form = UsuarioFormSingup(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             user.set_password(request.POST.get('password1'))
@@ -55,7 +55,7 @@ def remove_usuario(request, id):
 
 @login_required
 def perfil(request, id=None):
-    if not request.user.is_superuser and id != request.user.id:
+    if not request.user.is_superuser and id is not None and id != request.user.id:
         return redirect('perfil_usuario')
     
     user = None

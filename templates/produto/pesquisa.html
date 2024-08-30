@@ -12,7 +12,7 @@
                 {% for categoria in categorias %}
                     <a 
                         href="?categoria={{ categoria.id }}"
-                        class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1"
+                        class="{% if categoria_id == categoria.id %} text-red {% endif %} stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1"
                         data-filter="*"
                     >
                     {{ categoria.nome }}
@@ -41,14 +41,15 @@
                         <div class="mtext-102 cl2 p-b-15">Ordenar por</div>
                         <ul>
                             <li class="p-b-6">
-                                <a href="?sort=default" class="filter-link stext-106 trans-04">Padrão</a>
+                                <a href="?sort=default" class="{% if sort == "default" %}text-red{% endif %} filter-link stext-106 trans-04">Padrão</a>
                             </li>
                             <li class="p-b-6">
-                                <a href="?sort=preco_asc" class="filter-link stext-106 trans-04">Preço: Menor ao Maior</a>
+                                <a href="?sort=preco_asc" class="{% if sort == "preco_asc" %}text-red{% endif %} filter-link stext-106 trans-04">Preço: Menor ao Maior</a>
                             </li>
                             <li class="p-b-6">
-                                <a href="?sort=preco_desc" class="filter-link stext-106 trans-04">Preço: Maior ao Menor</a>
+                                <a href="?sort=preco_desc" class="{% if sort == "preco_desc" %}text-red{% endif %} filter-link stext-106 trans-04">Preço: Maior ao Menor</a>
                             </li>
+                            
                         </ul>
                     </div>
             
@@ -56,13 +57,13 @@
                         <div class="mtext-102 cl2 p-b-15">Preço</div>
                         <ul>
                             <li class="p-b-6">
-                                <a href="?preco_min=0&preco_max=50" class="filter-link stext-106 trans-04">R$0 - R$50</a>
+                                <a href="?preco_min=0&preco_max=50" class="{% if preco_min == "0" %}text-red{% endif %} filter-link stext-106 trans-04">R$0 - R$50</a>
                             </li>
                             <li class="p-b-6">
-                                <a href="?preco_min=50&preco_max=100" class="filter-link stext-106 trans-04">R$50 - R$100</a>
+                                <a href="?preco_min=50&preco_max=100" class="{% if preco_min == "50" %}text-red{% endif %} filter-link stext-106 trans-04">R$50 - R$100</a>
                             </li>
                             <li class="p-b-6">
-                                <a href="?preco_min=100&preco_max=150" class="filter-link stext-106 trans-04">R$100 - R$150</a>
+                                <a href="?preco_min=100&preco_max=150" class="{% if preco_min == "100" %}text-red{% endif %} filter-link stext-106 trans-04">R$100 - R$150</a>
                             </li>
                         </ul>
                     </div>
@@ -72,7 +73,7 @@
                         <ul>
                             {% for categoria in categorias %}
                                 <li class="p-b-6">
-                                    <a href="?categoria={{ categoria.id }}" class="filter-link stext-106 trans-04">{{ categoria.nome }}</a>
+                                    <a href="?categoria={{ categoria.id }}" class="{% if categoria_id == categoria.id %}text-red{% endif %} filter-link stext-106 trans-04">{{ categoria.nome }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -83,7 +84,7 @@
                         <ul>
                             {% for tamanho in tamanhos %}
                                 <li class="p-b-6">
-                                    <a href="?tamanho={{ tamanho.id }}" class="filter-link stext-106 trans-04">{{ tamanho.tamanho }}</a>
+                                    <a href="?tamanho={{ tamanho.id }}" class="{% if tamanho_id == tamanho.id %}text-red{% endif %} filter-link stext-106 trans-04">{{ tamanho.tamanho }}</a>
                                 </li>
                             {% endfor %}
                         </ul>

@@ -1,4 +1,4 @@
-from pyexpat.errors import messages
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from carrinho.models import Carrinho, ItemCarrinho
@@ -176,8 +176,8 @@ def pesquisar_produtos(request):
         'pesquisa': pesquisa,
         'preco_min': preco_min,
         'preco_max': preco_max,
-        'categoria_id': categoria_id,
-        'tamanho_id': tamanho_id,
+        'categoria_id': int(categoria_id if categoria_id else 0),
+        'tamanho_id': int(tamanho_id if tamanho_id else 0),
         'sort': sort,
     }
     return render(request, 'produto/pesquisa.html', context)
@@ -189,7 +189,11 @@ def adicionar_ao_carrinho(request, id):
         produto = get_object_or_404(Produto, id=id)
         usuario = request.user
         carrinho, created = Carrinho.objects.get_or_create(usuario=usuario)
-
+        
+        if not request.POST.get('quantidade') or not request.POST.get('estampa') or not request.POST.get('tamanho'):
+            messages.error(request, 'Por favor, preencha todos os campos!')
+            return redirect('detalhes_produto', produto.id)
+        
         quantidade = int(request.POST.get('quantidade'))
         estampa_id = int(request.POST.get('estampa'))
         tamanho_id = int(request.POST.get('tamanho'))

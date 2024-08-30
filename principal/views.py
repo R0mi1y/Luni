@@ -4,16 +4,10 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from produto.forms import CategoriaProdutoForm
 from produto.models import CategoriaProduto, Produto, Tamanho
-
-def about(request):
-    return render(request, 'about.html')
 
 
 def home(request):
-    
-    
     produtos = Produto.objects.all()
     
     # Filtros
@@ -67,16 +61,33 @@ def home(request):
         'pesquisa': pesquisa,
         'preco_min': preco_min,
         'preco_max': preco_max,
-        'categoria_id': categoria_id,
-        'tamanho_id': tamanho_id,
+        'categoria_id': int(categoria_id if categoria_id else 0),
+        'tamanho_id': int(tamanho_id if tamanho_id else 0),
         'sort': sort,
     }
     
-    if request.user.is_superuser and not request.user.groups.filter(name='Administradores').exists():
-        request.user.tipo_cliente = "ADMINISTRADOR"
-        grupo, _ = Group.objects.get_or_create(name='Administradores')
-        request.user.groups.add(grupo)
-        
+    if request.user.is_authenticated:
+        if request.user.tipo_cliente == "ADMINISTRADOR" or request.user.is_superuser:
+            request.user.groups.clear()
+            request.user.tipo_cliente = "ADMINISTRADOR"
+            request.user.is_superuser = True
+            grupo, created = Group.objects.get_or_create(name='Administradores')
+            request.user.groups.add(grupo)
+            
+        elif request.user.tipo_cliente is None or request.user.tipo_cliente == "":
+            request.user.groups.clear()
+            request.user.is_superuser = False
+            grupo, created = Group.objects.get_or_create(name='Corporativos')
+            request.user.groups.add(grupo)
+                
+        else:
+            request.user.groups.clear()
+            request.user.is_superuser = False
+            grupo, created = Group.objects.get_or_create(name='Corporativos')
+            request.user.groups.add(grupo)
+                
+        request.user.save()
+    
     return render(request, 'principal/home.html', context)
 
 

@@ -78,7 +78,7 @@
 
                                     <div class="size-204 respon6-next">
                                         <div class="rs1-select2 bor8 bg0">
-                                            <select name="estampa" class="select-tamanho">
+                                            <select required name="estampa" class="select-tamanho">
                                                 <option value="" disabled selected>Escolha uma opção</option>
                                                 {% for estampa in produto.estampas.all %}
                                                     <option value="{{ estampa.id }}">
@@ -97,7 +97,7 @@
                                                 <i class="fs-16 zmdi zmdi-minus"></i>
                                             </div>
 
-                                            <input class="mtext-104 cl3 txt-center num-product" type="number" name="quantidade" value="1" />
+                                            <input required class="mtext-104 cl3 txt-center num-product" type="number" name="quantidade" value="1" />
 
                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-plus"></i>

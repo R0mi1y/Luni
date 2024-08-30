@@ -76,7 +76,7 @@ def confirmar_compra(request):
         itens_carrinho.delete()
 
         messages.success(request, 'Compra finalizada com sucesso!')
-        return redirect('home')
+        return redirect('listar_pedidos')
     
     else:
         usuario = request.user
@@ -100,6 +100,8 @@ def confirmar_compra(request):
                 {
                     'produto': item.produto,
                     'quantidade': item.quantidade,
+                    'estampa': item.estampa,
+                    'tamanho': item.tamanho,
                     'total_item': item.quantidade * item.produto.preco
                 }
                 for item in itens_carrinho

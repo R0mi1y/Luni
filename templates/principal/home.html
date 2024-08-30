@@ -241,7 +241,7 @@
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="{{ "pesquisar" }}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+								<a href="{% url "pesquisar_produto" %}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
 									Compre agora
 								</a>
 							</div>
@@ -289,7 +289,7 @@
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-								<a href="{{ "pesquisar" }}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+								<a href="{% url "pesquisar_produto" %}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
 									Compre agora
 								</a>
 							</div>
@@ -312,7 +312,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="/static/images/banner-04.jpg" alt="IMG-BANNER">
 
-						<a href="{{ "pesquisar" }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url "pesquisar_produto" %}?categoria=9" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Mulher
@@ -337,7 +337,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="/static/images/banner-05.jpg" alt="IMG-BANNER">
 
-						<a href="{{ "pesquisar" }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url "pesquisar_produto" %}?categoria=10" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Homens
@@ -362,7 +362,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="/static/images/banner-07.jpg" alt="IMG-BANNER">
 
-						<a href="{{ "pesquisar" }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url "pesquisar_produto" %}?categoria=13" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Relógios
@@ -387,7 +387,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="/static/images/banner-08.jpg" alt="IMG-BANNER">
 
-						<a href="{{ "pesquisar" }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url "pesquisar_produto" %}?categoria=14" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Bolsas
@@ -412,7 +412,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="/static/images/banner-09.jpg" alt="IMG-BANNER">
 
-						<a href="{{ "pesquisar" }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url "pesquisar_produto" %}?categoria=15" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Accessórios
@@ -449,7 +449,7 @@
                 <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                     {% for categoria in categorias %}
                         <a 
-                            href="?categoria={{ categoria.id }}"
+                            href="{% url "pesquisar_produto" %}?categoria={{ categoria.id }}"
                             class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1"
                             data-filter="*"
                         >
@@ -479,13 +479,13 @@
                             <div class="mtext-102 cl2 p-b-15">Ordenar por</div>
                             <ul>
                                 <li class="p-b-6">
-                                    <a href="?sort=default" class="filter-link stext-106 trans-04">Padrão</a>
+                                    <a href="{% url "pesquisar_produto" %}?sort=default" class="filter-link stext-106 trans-04">Padrão</a>
                                 </li>
                                 <li class="p-b-6">
-                                    <a href="?sort=preco_asc" class="filter-link stext-106 trans-04">Preço: Menor ao Maior</a>
+                                    <a href="{% url "pesquisar_produto" %}?sort=preco_asc" class="filter-link stext-106 trans-04">Preço: Menor ao Maior</a>
                                 </li>
                                 <li class="p-b-6">
-                                    <a href="?sort=preco_desc" class="filter-link stext-106 trans-04">Preço: Maior ao Menor</a>
+                                    <a href="{% url "pesquisar_produto" %}?sort=preco_desc" class="filter-link stext-106 trans-04">Preço: Maior ao Menor</a>
                                 </li>
                             </ul>
                         </div>
@@ -494,13 +494,13 @@
                             <div class="mtext-102 cl2 p-b-15">Preço</div>
                             <ul>
                                 <li class="p-b-6">
-                                    <a href="?preco_min=0&preco_max=50" class="filter-link stext-106 trans-04">R$0 - R$50</a>
+                                    <a href="{% url "pesquisar_produto" %}?preco_min=0&preco_max=50" class="filter-link stext-106 trans-04">R$0 - R$50</a>
                                 </li>
                                 <li class="p-b-6">
-                                    <a href="?preco_min=50&preco_max=100" class="filter-link stext-106 trans-04">R$50 - R$100</a>
+                                    <a href="{% url "pesquisar_produto" %}?preco_min=50&preco_max=100" class="filter-link stext-106 trans-04">R$50 - R$100</a>
                                 </li>
                                 <li class="p-b-6">
-                                    <a href="?preco_min=100&preco_max=150" class="filter-link stext-106 trans-04">R$100 - R$150</a>
+                                    <a href="{% url "pesquisar_produto" %}?preco_min=100&preco_max=150" class="filter-link stext-106 trans-04">R$100 - R$150</a>
                                 </li>
                             </ul>
                         </div>
@@ -510,7 +510,7 @@
                             <ul>
                                 {% for categoria in categorias %}
                                     <li class="p-b-6">
-                                        <a href="?categoria={{ categoria.id }}" class="filter-link stext-106 trans-04">{{ categoria.nome }}</a>
+                                        <a href="{% url "pesquisar_produto" %}?categoria={{ categoria.id }}" class="filter-link stext-106 trans-04">{{ categoria.nome }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -521,7 +521,7 @@
                             <ul>
                                 {% for tamanho in tamanhos %}
                                     <li class="p-b-6">
-                                        <a href="?tamanho={{ tamanho.id }}" class="filter-link stext-106 trans-04">{{ tamanho.tamanho }}</a>
+                                        <a href="{% url "pesquisar_produto" %}?tamanho={{ tamanho.id }}" class="filter-link stext-106 trans-04">{{ tamanho.tamanho }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -590,11 +590,11 @@
             <div class="pagination-links flex-c-m flex-w w-full p-t-45">
                 <div class="pagination-link flex-c-m stext-101 cl5 size-103 bg2 bor1 p-lr-15 trans-04">
                     {% if produtos.has_previous %}
-                        <a class="hov-btn1 bg2 bor1 p-lr-15 text-decoration-none" href="?page=1{% if q %}&pesquisa={{ pesquisa }}{% endif %}{% if preco_min %}&preco_min={{ preco_min }}{% endif %}{% if preco_max %}&preco_max={{ preco_max }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if tamanho_id %}&tamanho={{ tamanho_id }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}">&laquo; Primeiro</a>
+                        <a class="hov-btn1 bg2 bor1 p-lr-15 text-decoration-none" href="{% url "pesquisar_produto" %}?page=1{% if q %}&pesquisa={{ pesquisa }}{% endif %}{% if preco_min %}&preco_min={{ preco_min }}{% endif %}{% if preco_max %}&preco_max={{ preco_max }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if tamanho_id %}&tamanho={{ tamanho_id }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}">&laquo; Primeiro</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         | 
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="hov-btn1 bg2 bor1 p-lr-15 text-decoration-none" href="?page={{ produtos.previous_page_number }}{% if pesquisa %}&pesquisa={{ pesquisa }}{% endif %}{% if preco_min %}&preco_min={{ preco_min }}{% endif %}{% if preco_max %}&preco_max={{ preco_max }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if tamanho_id %}&tamanho={{ tamanho_id }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}">Anterior</a>
+                        <a class="hov-btn1 bg2 bor1 p-lr-15 text-decoration-none" href="{% url "pesquisar_produto" %}?page={{ produtos.previous_page_number }}{% if pesquisa %}&pesquisa={{ pesquisa }}{% endif %}{% if preco_min %}&preco_min={{ preco_min }}{% endif %}{% if preco_max %}&preco_max={{ preco_max }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if tamanho_id %}&tamanho={{ tamanho_id }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}">Anterior</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         |
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -608,11 +608,11 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         |
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="hov-btn1 bg2 bor1 p-lr-15 text-decoration-none" href="?page={{ produtos.next_page_number }}{% if pesquisa %}&pesquisa={{ pesquisa }}{% endif %}{% if preco_min %}&preco_min={{ preco_min }}{% endif %}{% if preco_max %}&preco_max={{ preco_max }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if tamanho_id %}&tamanho={{ tamanho_id }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}">Próxima</a>
+                        <a class="hov-btn1 bg2 bor1 p-lr-15 text-decoration-none" href="{% url "pesquisar_produto" %}?page={{ produtos.next_page_number }}{% if pesquisa %}&pesquisa={{ pesquisa }}{% endif %}{% if preco_min %}&preco_min={{ preco_min }}{% endif %}{% if preco_max %}&preco_max={{ preco_max }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if tamanho_id %}&tamanho={{ tamanho_id }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}">Próxima</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         |
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="hov-btn1 bg2 bor1 p-lr-15 text-decoration-none" href="?page={{ produtos.paginator.num_pages }}{% if pesquisa %}&pesquisa={{ pesquisa }}{% endif %}{% if preco_min %}&preco_min={{ preco_min }}{% endif %}{% if preco_max %}&preco_max={{ preco_max }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if tamanho_id %}&tamanho={{ tamanho_id }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}">Última &raquo;</a>
+                        <a class="hov-btn1 bg2 bor1 p-lr-15 text-decoration-none" href="{% url "pesquisar_produto" %}?page={{ produtos.paginator.num_pages }}{% if pesquisa %}&pesquisa={{ pesquisa }}{% endif %}{% if preco_min %}&preco_min={{ preco_min }}{% endif %}{% if preco_max %}&preco_max={{ preco_max }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if tamanho_id %}&tamanho={{ tamanho_id }}{% endif %}{% if sort %}&sort={{ sort }}{% endif %}">Última &raquo;</a>
                     {% endif %}
             </div></div>
         </div>

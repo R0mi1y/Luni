@@ -20,7 +20,7 @@ class UsuarioFormSingup(forms.ModelForm):
     password1, password2 = SetPasswordMixin.create_password_fields()
     class Meta:
         model = Usuario
-        fields = ['imagem', 'username', 'email', 'telefone', 'endereco', 'cpf',]
+        fields = ['username', 'email', 'telefone', 'endereco', 'cpf',]
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o nome de usuário'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Digite o e-mail'}),
@@ -29,7 +29,6 @@ class UsuarioFormSingup(forms.ModelForm):
             'cpf': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o CPF'}),
             'password1': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Digite a senha'}),
             'password2': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Digite a senha'}),
-            'imagem': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
         

@@ -19,17 +19,19 @@
                                 <table class="table-shopping-cart">
                                     <thead>
 										<tr class="table_head">
-											<th class="column-1">Produto</th>
-                                            <th class="column-2"></th>
-                                            <th class="column-3">Preço</th>
-                                            <th class="column-4">Quantidade</th>
-                                            <th class="column-5">Total</th>
+											<th class="column-1 text-center">Produto</th>
+                                            <th class="column-2 text-center"></th>
+                                            <th class="column-3 text-center">Tamanho</th>
+                                            <th class="column-4 text-center">Estampa</th>
+                                            <th class="column-5 text-center">Preço</th>
+                                            <th class="column-6 text-center">Quantidade</th>
+                                            <th class="column-7 text-center">Total</th>
                                         </tr>
 									</thead>
 									<tbody id="carrinho-list">
                                         {% for item_data in itens_carrinho %}
                                             <tr data-id="{{ item_data.item.id }}" data-preco="{{ item_data.item.produto.preco }}" class="table_row">
-                                                <td class="column-1">
+                                                <td class="column-1 text-center">
                                                     <a href="{% url "rm_carrinho" item_data.item.produto.id %}">
                                                         <div class="how-itemcart1">
                                                             {% if item_data.item.produto.imagem %}
@@ -39,15 +41,24 @@
                                                             {% endif %}
                                                         </div>
                                                     </a>
-                                                    
                                                 </td>
-                                                <td class="column-2">
+                                                <td class="column-2 text-center">
                                                     <a href="{% url "detalhes_produto" item_data.item.produto.id %}">
                                                         {{ item_data.item.produto.nome }}
                                                     </a>
                                                 </td>
-                                                <td class="column-3 preco">R$ {{ item_data.item.produto.preco }}</td>
-                                                <td class="column-4">
+                                                <td class="column-3 text-center">
+                                                    <a href="{% url "detalhes_produto" item_data.item.produto.id %}">
+                                                        {{ item_data.item.estampa.nome }}
+                                                    </a>
+                                                </td>
+                                                <td class="column-4 text-center">
+                                                    <a href="{% url "detalhes_produto" item_data.item.produto.id %}">
+                                                        {{ item_data.item.tamanho.tamanho }}
+                                                    </a>
+                                                </td>
+                                                <td class="column-5 text-center preco">R$ {{ item_data.item.produto.preco }}</td>
+                                                <td class="column-6 text-center">
                                                     <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                                         <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                                             <i class="fs-16 zmdi zmdi-minus"></i>
@@ -60,7 +71,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="column-5 total-item">R$ {{ item_data.total_item|floatformat:2 }}</td>
+                                                <td class="column-7 text-center total-item">R$ {{ item_data.total_item|floatformat:2 }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>

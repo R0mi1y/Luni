@@ -60,7 +60,7 @@ body {
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url('../fonts/Poppins/Poppins-Regular.ttf'); 
+  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
 }
 
 @font-face {
@@ -75,7 +75,7 @@ body {
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('../fonts/Poppins/Poppins-Medium.ttf'); 
+  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
 }
 
 @font-face {
@@ -546,7 +546,9 @@ body {
   cursor: pointer;
 }
 
-
+.text-red {
+  color: red !important;
+}
 /*---------------------------------------------*/
 .icon-header-noti::after {
   content: attr(data-notify);

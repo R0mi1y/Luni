@@ -120,3 +120,7 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 DEFAULT_FROM_EMAIL = 'edielromily01@gmail.com'
 EMAIL_SENDER_NAME = 'Luni'
 
+ERROR_404_TEMPLATE_NAME = "404.html"
+ERROR_403_TEMPLATE_NAME = "403.html"
+ERROR_400_TEMPLATE_NAME = "400.html"
+ERROR_500_TEMPLATE_NAME = "500.html"

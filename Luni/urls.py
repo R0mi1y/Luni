@@ -1,7 +1,25 @@
 from django.contrib import admin
+from django.shortcuts import redirect, render
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+
+
+def error_handler(request, exception=None, status_code=None):
+    if status_code is None:
+        status_code = 500
+    context = {
+        'status_code': status_code,
+        'exception': exception,
+    }
+    return render(request, 'error.html', context, status=status_code)
+
+
+handler400 = error_handler
+handler403 = error_handler
+handler404 = error_handler
+handler500 = error_handler
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
