@@ -11,9 +11,9 @@ class ProdutoForm(ModelForm):
             'descricao': forms.Textarea(attrs={'class': 'form-control-textarea', 'placeholder': 'Digite a descrição'}),
             'categorias': forms.CheckboxSelectMultiple(attrs={'class': 'form-control-select-multiple'}),
             'preco': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Digite o preço'}),
-            'tamanho': forms.CheckboxSelectMultiple(attrs={'class': 'form-control'}),
+            'tamanho': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'required': False}),
             'quantidade_em_estoque': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Digite a quantidade em estoque'}),
-            'estampas': forms.CheckboxSelectMultiple(attrs={'class': 'form-control-select-checkbox'}),
+            'estampas': forms.CheckboxSelectMultiple(attrs={'class': 'form-control-select-checkbox', 'required': False}),
             'imagem': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 

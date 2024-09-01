@@ -1,62 +1,20 @@
-{% comment %} {%load static%} {% endcomment %}
-
-{% comment %} <!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>web I -Login</title>
-</head>
-
-<body class="bg-gradient-primary">
-
-    <h2>Login</h2>
-    <form class="user" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success btn-user btn-block">Login</button>
-        <input type="hidden" name="next" value="{{ next }}" />
-    </form>
-    <br>
-    
-</body>
-
-</html> {% endcomment %}
-
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 	<title>Luni - Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="/static/login_static/images/icons/favicon.ico"/>
-<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/static/images/icons/favicon.png"/>
 	<link rel="stylesheet" type="text/css" href="/static/login_static/vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/static/login_static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/static/login_static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/static/login_static/vendor/animate/animate.css">
-<!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="/static/login_static/vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/static/login_static/vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/static/login_static/vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="/static/login_static/vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/static/login_static/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/static/login_static/css/main.css">
-<!--===============================================================================================-->
 </head>
 <body>
 	
@@ -126,25 +84,14 @@
 		</div>
 	</div>
 	
-	
-
-	
-	
-<!--===============================================================================================-->
 	<script src="/static/login_static/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
 	<script src="/static/login_static/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
 	<script src="/static/login_static/vendor/bootstrap/js/popper.js"></script>
 	<script src="/static/login_static/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
 	<script src="/static/login_static/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
 	<script src="/static/login_static/vendor/daterangepicker/moment.min.js"></script>
 	<script src="/static/login_static/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
 	<script src="/static/login_static/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
 	<script src="/static/login_static/js/main.js"></script>
 
 </body>

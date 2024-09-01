@@ -15,6 +15,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Nome</th>
                 <th>Imagem</th>
                 <th>Ações</th>
@@ -23,6 +24,7 @@
         <tbody>
             {% for estampa in estampas %}
             <tr>
+                <td>{{ estampa.id }}</td>
                 <td>{{ estampa.nome }}</td>
                 <td>
                     <div class="imagem-container">

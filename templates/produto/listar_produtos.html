@@ -15,6 +15,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Nome</th>
                 <th>Imagem</th>
                 <th>Preço</th>
@@ -25,6 +26,7 @@
         <tbody>
             {% for produto in produtos %}
             <tr>
+                <td><a href="{% url "detalhes_produto" produto.id %}">{{ produto.id }}</td></a>
                 <td>{{ produto.nome }}</td>
                 <td>
                     <div class="imagem-container">

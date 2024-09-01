@@ -28,7 +28,7 @@ class Tamanho(models.Model):
 
 
 class Produto(models.Model):
-    tamanho = models.ManyToManyField(Tamanho, related_name='produto')
+    tamanho = models.ManyToManyField(Tamanho, related_name='produto', blank=True)
     nome = models.CharField(max_length=100)
     descricao = models.TextField(blank=True, null=True)
     categorias = models.ManyToManyField(CategoriaProduto, related_name='produtos')

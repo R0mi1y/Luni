@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from principal.decorators import group_required
 from .models import *
@@ -61,6 +62,27 @@ def edit_pedido(request, id):
 @login_required
 @group_required('Administradores')
 def remove_pedido(request, id):
-    Pedido.objects.filter(pk = id).first().delete()
+    pedido = Pedido.objects.filter(pk=id).first()
+    
+    if not pedido:
+        messages.error(request, 'Pedido não encontrado.')
+        return redirect("listar_pedidos")
 
+    pedido.delete()
     return redirect('listar_pedidos')
+
+
+@login_required
+def pedido(request, id):
+    pedido = Pedido.objects.filter(pk=id).first()
+    
+    if not pedido:
+        messages.error(request, 'Pedido não encontrado.')
+        return redirect("listar_pedidos")
+
+    if request.user.is_superuser or request.user.id == pedido.cliente.id:
+        itens = ItemPedido.objects.filter(pedido=pedido)
+        return render(request, 'pedido/pedido.html', {'pedido': pedido, 'itens': itens})
+    
+    messages.error(request, 'Você não tem permissão para acessar esta página.')
+    return redirect("listar_pedidos")

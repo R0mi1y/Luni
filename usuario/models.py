@@ -28,6 +28,10 @@ class Usuario(AbstractUser):
     def __str__(self):
         return f"{self.id} - {self.username}"
     
+    
+    def is_admin(self):
+        return self.groups.filter(name="Administrador").exists()
+    
     def get_size_items(self):
         carrinho = self.carrinho.first()
         if carrinho:

@@ -26,8 +26,8 @@ class ItemPedido(models.Model):
     quantidade = models.PositiveIntegerField(default=1)
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     
-    tamanho = models.ForeignKey(Tamanho, on_delete=models.CASCADE)
-    estampa = models.ForeignKey(Estampa, on_delete=models.CASCADE)
+    tamanho = models.ForeignKey(Tamanho, on_delete=models.CASCADE, blank=True, null=True)
+    estampa = models.ForeignKey(Estampa, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f'{self.quantidade} x {self.produto.nome}'

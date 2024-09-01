@@ -10,7 +10,6 @@ from .models import *
 from .forms import *
 
 
-
 @login_required
 def detalhes_produto(request, id):
     produto = Produto.objects.filter(id=id).first()
@@ -68,14 +67,21 @@ def edit_produto(request, id):
             return redirect('listar_produtos')
     else:
         form = ProdutoForm(instance=produto)
-
-    return render(request, 'form.html', {'form' : form, 'current_image_url': produto.imagem.url, 'titulo': 'Editar produto'})
-
+    
+    context = {'form' : form, 'titulo' : 'Editar produto'}
+    
+    if produto.imagem and hasattr(produto.imagem, 'url'):
+        context['current_image_url'] = produto.imagem.url
+    
+    return render(request, 'form.html', context)
+    
 
 @login_required
 @group_required('Administradores')
 def remove_produto(request, id):
-    Produto.objects.get(pk = id).delete()
+    produto = Produto.objects.filter(pk = id)
+    
+    if produto: produto.delete()
 
     return redirect('listar_produtos')
 
@@ -98,26 +104,28 @@ def create_tipo_produto(request):
 @login_required
 @group_required('Administradores')
 def edit_tipo_produto(request, id):
-    produto = CategoriaProduto.objects.get(pk = id)
-    print(produto)
+    categoriaProduto = CategoriaProduto.objects.get(pk = id)
+    print(categoriaProduto)
 
     if request.method == "POST":
-        form = CategoriaProdutoForm(request.POST, instance=produto)
+        form = CategoriaProdutoForm(request.POST, instance=categoriaProduto)
 
         if form.is_valid():
             form.save()
-
+            
             return redirect('listar_tipo_produtos')
     else:
-        form = CategoriaProdutoForm(instance=produto)
+        form = CategoriaProdutoForm(instance=categoriaProduto)
 
-    return render("form.html", {'form' : form, 'titulo': 'Editar tipo de produto'})
+    return render(request, "form.html", {'form' : form, 'titulo': 'Editar tipo de produto'})
 
 
 @login_required
 @group_required('Administradores')
 def remove_tipo_produto(request, id):
-    CategoriaProduto.objects.filter(pk = id).first().delete()
+    categoriaProduto = CategoriaProduto.objects.filter(pk = id).first()
+    
+    if categoriaProduto: categoriaProduto.delete()
 
     return redirect('listar_tipo_produtos')
 
@@ -190,16 +198,20 @@ def adicionar_ao_carrinho(request, id):
         usuario = request.user
         carrinho, created = Carrinho.objects.get_or_create(usuario=usuario)
         
-        if not request.POST.get('quantidade') or not request.POST.get('estampa') or not request.POST.get('tamanho'):
-            messages.error(request, 'Por favor, preencha todos os campos!')
-            return redirect('detalhes_produto', produto.id)
-        
         quantidade = int(request.POST.get('quantidade'))
-        estampa_id = int(request.POST.get('estampa'))
-        tamanho_id = int(request.POST.get('tamanho'))
-
-        estampa = get_object_or_404(Estampa, id=estampa_id)
-        tamanho = get_object_or_404(Tamanho, id=tamanho_id)
+        estampa_id = request.POST.get('estampa')
+        tamanho_id = request.POST.get('tamanho')
+        
+        estampa = None
+        tamanho = None
+        
+        if estampa_id is not None:
+            estampa_id = int(estampa_id)
+            estampa = get_object_or_404(Estampa, id=estampa_id)
+            
+        if tamanho_id is not None:
+            tamanho_id = int(tamanho_id)
+            tamanho = get_object_or_404(Tamanho, id=tamanho_id)
         
         item, created = ItemCarrinho.objects.get_or_create(
             carrinho=carrinho, 

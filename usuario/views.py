@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.contrib import messages
+from django.contrib.auth import login
 
 from principal.decorators import group_required
 from .models import *
@@ -14,6 +15,8 @@ def create_usuario(request):
             user = form.save()
             user.set_password(request.POST.get('password1'))
             user.save()
+            
+            login(request, user)
             grupo, created = Group.objects.get_or_create(name='Clientes')
             
             user.groups.add(grupo)
@@ -36,19 +39,29 @@ def edit_usuario(request, id):
         form = UsuarioForm(request.POST, request.FILES, instance=usuario)
 
         if form.is_valid():
-            form.save()
+            user = form.save()
+            
+            if request.user.id == usuario.id:
+                login(request, user)
             
             return redirect('perfil_usuario', id=id)
     else:
         form = UsuarioForm(instance=usuario)
-
-    return render(request, 'form.html', {'form' : form, 'current_image_url': usuario.imagem.url, 'titulo' : 'Editar Usuário'})
+    
+    context = {'form' : form, 'titulo' : 'Editar Usuário'}
+    
+    if usuario.imagem and hasattr(usuario.imagem, 'url'):
+        context['current_image_url'] = usuario.imagem.url
+    
+    return render(request, 'form.html', context)
 
 
 @login_required
 @group_required('Administradores')
 def remove_usuario(request, id):
-    Usuario.objects.filter(pk = id).first().delete()
+    usuario = Usuario.objects.filter(pk = id).first()
+    
+    if usuario: usuario.delete()
 
     return redirect('listar_usuarios')
 

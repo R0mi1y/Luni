@@ -15,21 +15,23 @@
                 <div class="col-md-6 col-lg-7 p-b-30">
                     <div class="p-l-25 p-r-30 p-lr-0-lg">
                         <div class="wrap-slick3 flex-sb flex-w">
-                            <div class="wrap-slick3-dots">
-                                <ul class="slick3-dots" role="tablist">
-                                    <li><p class="stext-105">Estampas</p></li>
-                                    {% for estampa in produto.estampas.all %}
-                                    {% if estampa.imagem %}
-                                            <li role="presentation">
-                                                <p class="stext-102">{{ estampa.nome }}</p>
-                                                <div class="imagem-container-p">
-                                                    <img src="{{ estampa.imagem.url }}" />
-                                                </div>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                            {% if produto.estampas.all %}
+                                <div class="wrap-slick3-dots">
+                                    <ul class="slick3-dots" role="tablist">
+                                        <li><p class="stext-105">Estampas</p></li>
+                                        {% for estampa in produto.estampas.all %}
+                                        {% if estampa.imagem %}
+                                                <li role="presentation">
+                                                    <p class="stext-102">{{ estampa.nome }}</p>
+                                                    <div class="imagem-container-p">
+                                                        <img src="{{ estampa.imagem.url }}" />
+                                                    </div>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
 
                             <div class="slick3 gallery-lb slick-initialized slick-slider slick-dotted">
                                 <div class="slick-list draggable">
@@ -58,37 +60,41 @@
                             </p>
 
                             <div class="p-t-33">
-                                <div class="flex-w flex-r-m p-b-10">
-                                    <div class="size-203 flex-c-m respon6">Tamanho</div>
+                                {% if produto.tamanho.all %}
+                                    <div class="flex-w flex-r-m p-b-10">
+                                        <div class="size-203 flex-c-m respon6">Tamanho</div>
 
-                                    <div class="size-204 respon6-next">
-                                        <div class="rs1-select2 bor8 bg0">
-                                            <select name="tamanho" class="select-tamanho">
-                                                <option value="" disabled selected>Escolha uma opção</option>
-                                                {% for tamanho in produto.tamanho.all %}
-                                                <option value="{{ tamanho.id }}">{{ tamanho.tamanho }}</option>
-                                                {% endfor %}
-                                            </select>
+                                        <div class="size-204 respon6-next">
+                                            <div class="rs1-select2 bor8 bg0">
+                                                <select required name="tamanho" class="select-tamanho">
+                                                    <option value="" disabled selected>Escolha uma opção</option>
+                                                    {% for tamanho in produto.tamanho.all %}
+                                                    <option value="{{ tamanho.id }}">{{ tamanho.tamanho }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                {% endif %}
                                 
-                                <div class="flex-w flex-r-m p-b-10">
-                                    <div class="size-203 flex-c-m respon6">Estampas</div>
+                                {% if produto.estampas.all %}
+                                    <div class="flex-w flex-r-m p-b-10">
+                                        <div class="size-203 flex-c-m respon6">Estampas</div>
 
-                                    <div class="size-204 respon6-next">
-                                        <div class="rs1-select2 bor8 bg0">
-                                            <select required name="estampa" class="select-tamanho">
-                                                <option value="" disabled selected>Escolha uma opção</option>
-                                                {% for estampa in produto.estampas.all %}
-                                                    <option value="{{ estampa.id }}">
-                                                        {{ estampa.nome }}
-                                                    </option>
-                                                {% endfor %}
-                                            </select>
+                                        <div class="size-204 respon6-next">
+                                            <div class="rs1-select2 bor8 bg0">
+                                                <select required name="estampa" class="select-tamanho">
+                                                    <option value="" disabled selected>Escolha uma opção</option>
+                                                    {% for estampa in produto.estampas.all %}
+                                                        <option value="{{ estampa.id }}">
+                                                            {{ estampa.nome }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                {% endif %}
 
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-204 flex-w flex-m respon6-next">
@@ -121,13 +127,15 @@
 {% endblock content %}
 
 {% block extra_js %}
-    $('.btn-num-product-down').on('click', function(){
-        var numProduct = Number($(this).next().val());
-        if(numProduct > 0) $(this).next().val(numProduct - 1);
-    });
-
-    $('.btn-num-product-up').on('click', function(){
-        var numProduct = Number($(this).prev().val());
-        $(this).prev().val(numProduct + 1);
-    });
+    <script>
+        $('.btn-num-product-down').on('click', function(){
+            var numProduct = Number($(this).next().val());
+            if(numProduct > 0) $(this).next().val(numProduct - 1);
+        });
+        
+        $('.btn-num-product-up').on('click', function(){
+            var numProduct = Number($(this).prev().val());
+            $(this).prev().val(numProduct + 1);
+        });
+    </script>
 {% endblock extra_js %}

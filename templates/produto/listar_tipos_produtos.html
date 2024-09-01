@@ -20,18 +20,20 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Nome do Tipo</th>
+                <th>Id</th>
+                <th>Categoria</th>
                 <th colspan="2">Ações</th>
             </tr>
         </thead>
         <tbody>
             {% for tipo in tipos_produtos %}
                 <tr>
+                    <td>{{ tipo.id }}</td>
                     <td>{{ tipo.nome }}</td>
                     <td>
                         <form method="POST" action="{% url 'delete_tipo_produto' tipo.id %}" style="display:inline;">
                             <div class="form-row">
-                            <button type="button" onclick="window.location={% url 'edit_tipo_produto' tipo.id %}" class="btn-primary ml-2">Editar</button>
+                            <button type="button" onclick="window.location='{% url 'edit_tipo_produto' tipo.id %}'" class="btn-primary ml-2">Editar</button>
                             {% csrf_token %}
                             <button type="submit" style="background-color: #d45959;" class="btn-primary ml-2" onclick="return confirm('Tem certeza que deseja deletar este tipo de produto?');">Deletar</button></div>
                         </form>

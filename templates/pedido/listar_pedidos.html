@@ -30,11 +30,12 @@
         <tbody>
             {% for pedido in pedidos %}
             <tr>
-                <td>{{ pedido.id }}</td>
+                <td><a href="{% url "pedido" pedido.id %}">{{ pedido.id }}</a></td>
                 <td>{{ pedido.cliente }}</td>
                 <td>{{ pedido.data_pedido }}</td>
                 <td>{{ pedido.preco_total }}</td>
                 <td>{{ pedido.status }}</td>
+        
                 {% if request.user.is_superuser %}
                 <td>
                     <div class="d-flex justify-content-between" style="gap: 1rem;">

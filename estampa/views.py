@@ -43,12 +43,19 @@ def edit_estampa(request, id):
     else:
         form = EstampaForm(instance=estampa)
 
-    return render(request, 'form.html', {'form' : form, 'current_image_url': estampa.imagem.url, 'titulo' : 'Editar Estampa'})
+    context = {'form' : form, 'titulo' : 'Editar Estampa'}
+    
+    if estampa.imagem and hasattr(estampa.imagem, 'url'):
+        context['current_image_url'] = estampa.imagem.url
+    
+    return render(request, 'form.html', context)
 
 
 @group_required('Administradores')
 @login_required
 def remove_estampa(request, id):
-    Estampa.objects.filter(pk = id).first().delete()
-
+    estampa = Estampa.objects.filter(pk = id).first()
+    
+    if estampa: estampa.delete()
+    
     return redirect('listar_estampas')

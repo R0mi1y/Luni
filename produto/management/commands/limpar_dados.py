@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand
 from produto.models import Produto, Estampa
 from pedido.models import Pedido, ItemPedido
+from carrinho.models import Carrinho, ItemCarrinho
+from estampa.models import Estampa
 from django.db import transaction
 
 class Command(BaseCommand):
@@ -19,5 +21,12 @@ class Command(BaseCommand):
             # Limpar Pedidos e ItensPedido
             ItemPedido.objects.all().delete()
             self.stdout.write(self.style.SUCCESS('Itens de pedido excluídos com sucesso'))
+            
             Pedido.objects.all().delete()
+            self.stdout.write(self.style.SUCCESS('Pedidos excluídos com sucesso'))
+            
+            Estampa.objects.all().delete()
+            self.stdout.write(self.style.SUCCESS('Pedidos excluídos com sucesso'))
+            
+            Carrinho.objects.all().delete()
             self.stdout.write(self.style.SUCCESS('Pedidos excluídos com sucesso'))
